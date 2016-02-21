@@ -1,7 +1,7 @@
-#Vectores - Christian Esquivel - Fisica 1
 
 import math
 import sys
+
 MagnitudA = AnguloA = MagnitudB = AnguloB = None
 
 def printMenu():

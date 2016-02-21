@@ -1,4 +1,3 @@
-#Vectores - Christian Esquivel - Fisica 1
 
 import math
 import sys
