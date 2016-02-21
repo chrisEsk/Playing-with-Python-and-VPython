@@ -1,4 +1,3 @@
-# Vectores - Christian Esquivel - Fisica 1
 # > python SumVectoresAyB.py -MagnitudA 3 -AnguloA 38 -MagnitudB 2.4 -AnguloB 63
 
 import math
