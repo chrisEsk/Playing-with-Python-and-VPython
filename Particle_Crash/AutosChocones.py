@@ -50,6 +50,9 @@ discriminant = (b * b) - (4 * a * c)
 # Si el determinante es mayor o igual a 0, se calcula la cuadratica para sacar los tiempos de choque:
 if discriminant < 0:
 	label_Info = label(pos=(0, 5, 0), text='No collision detected!', color=color.green)
+	time = 8.0
+	point_of_impact = 0.0
+	print 'No point of impact.'
 else:
 	t1 = (-b + math.sqrt(discriminant)) / (2 * a) 
 	t2 = (-b - math.sqrt(discriminant)) / (2 * a)
