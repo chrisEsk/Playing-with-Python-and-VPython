@@ -15,8 +15,8 @@ Initial_Velocity_Ball_1 = 15
 Acceleration_Ball_1 = 0
 
 Initial_Position_Ball_2 = -50
-Initial_Velocity_Ball_2 = 0
-Acceleration_Ball_2 = 2
+Initial_Velocity_Ball_2 = 2
+Acceleration_Ball_2 = 1
 #######################################
 
 # Cambiando display settings: 
@@ -95,7 +95,7 @@ cache_ball2 = sphere(pos=initial_pos_ball_2, radius=0, color=color.yellow)
 # Simulacion de movimiento
 deltaT = 0.005
 t = 0
-while t <= 3 * time:
+while t <= 7 * time:
     rate(500)
     ball1.pos = cache_ball1.pos + ball1.velocity * t + (0.5) * ball1.acceleration * t * t
     ball2.pos = cache_ball2.pos + ball2.velocity * t + (0.5) * ball2.acceleration * t * t
