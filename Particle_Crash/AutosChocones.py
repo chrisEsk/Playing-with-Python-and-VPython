@@ -1,4 +1,3 @@
-
 # .__          __ .          ,          .___                 .
 # [__) _ ._.  /  `|_ ._.* __-+-* _.._   [__  __ _.. .*.  , _ |
 # |   (_)[    \__.[ )[  |_)  | |(_][ )  [____) (_](_|| \/ (/,|
@@ -11,20 +10,20 @@ from visual import *
 import math
 
 #### Modificar estas Variables #######
-Initial_Position_Ball_1 = -210
-Initial_Velocity_Ball_1 = 8.0
-Acceleration_Ball_1 = 3.0
+Initial_Position_Ball_1 = -100
+Initial_Velocity_Ball_1 = 15
+Acceleration_Ball_1 = 0
 
-Initial_Position_Ball_2 = 300
-Initial_Velocity_Ball_2 = -4.0
-Acceleration_Ball_2 = -2
+Initial_Position_Ball_2 = -50
+Initial_Velocity_Ball_2 = 0
+Acceleration_Ball_2 = 2
 #######################################
 
 # Cambiando display settings: 
-scene = display(title='Paticle Crash!', x=0, y=0, width=900, height=550, autocenter=True, background=color.gray(0.2))
+scene = display(title='Paticle Crash!', x=0, y=0, width=900, height=550, center=(0, 0, 0), background=color.gray(0.2))
 
 # Radio de las esferas:
-sphere_Radius = 20
+sphere_Radius = 15
 
 # Se definen vectores de posiciones iniciales de las bolas:
 initial_pos_ball_1 = (Initial_Position_Ball_1, 0, 0)
@@ -46,27 +45,39 @@ b = Initial_Velocity_Ball_1 - Initial_Velocity_Ball_2
 c = Initial_Position_Ball_1 - Initial_Position_Ball_2
 
 discriminant = (b * b) - (4 * a * c)
+doubleColisionDetected = false
+point_of_impact_2 = -9000
 
 # Si el determinante es mayor o igual a 0, se calcula la cuadratica para sacar los tiempos de choque:
 if discriminant < 0:
 	label_Info = label(pos=(0, 5, 0), text='No collision detected!', color=color.green)
 	time = 8.0
-	point_of_impact = 0.0
+	point_of_impact = -9000
 	print 'No point of impact.'
 else:
 	t1 = (-b + math.sqrt(discriminant)) / (2 * a) 
 	t2 = (-b - math.sqrt(discriminant)) / (2 * a)
 	if t1 > 0:
 		time = t1
+		if t2 > 0:
+			# Doble colision!
+			doubleColisionDetected = true
+			point_of_impact_2 = Initial_Position_Ball_1 + Initial_Velocity_Ball_1 * t2 + 0.5 * Acceleration_Ball_1 * t2 * t2	
+			pointer = arrow(pos=(point_of_impact_2, 60, 0), axis=(0, -40, 0), shaftwidth=10, color=color.yellow)
 	else:
-		time = t2 
+		if t2 > 0 :
+			time = t2
 	# Calculo del punto de impacto e impresion de informacion util
 	point_of_impact = Initial_Position_Ball_1 + Initial_Velocity_Ball_1 * time + 0.5 * Acceleration_Ball_1 * time * time
-	print 'Crash detected! Time of colision: ' + str('%.2f' % time)  + 'm'
-	print 'Point of Impact: ' + str('%.2f' % point_of_impact) + 'm'	
+	print 'Crash detected! Time of colision: ' + str('%.2f' % time)  + 's'
+	print 'Point of Impact: ' + str('%.2f' % point_of_impact) + 'm'
+	if doubleColisionDetected: 
+		print 'Second Crash detected! Time of Second colision: ' + str('%.2f' % t2)  + 's'
+		print 'Second Point of Impact: ' + str('%.2f' % point_of_impact_2) + 'm'
+		label_Impact = label(pos=(point_of_impact, -40, 0), text=str('First Impact: ' + '%.2f' % point_of_impact + 'm\nTime of First Impact: ' + str('%.2f' % time) + 's\nSecond Impact: ' + '%.2f' % point_of_impact_2 + 'm\nTime of Second Impact: ' + str('%.2f' % t2) + 's'), color=color.green)
+	else:
+		label_Impact = label(pos=(point_of_impact, -40, 0), text=str('Impact: ' + '%.2f' % point_of_impact + 'm\nTime of Impact: ' + str('%.2f' % time) + 's'), color=color.green)
 	pointer = arrow(pos=(point_of_impact, 60, 0), axis=(0, -40, 0), shaftwidth=10, color=color.yellow)
-	label_Impact = label(pos=(point_of_impact, -40, 0), text=str('Impact: ' + '%.2f' % point_of_impact + 'm\nTime of Impact: ' + str('%.2f' % time) + 's'), color=color.green)
-
 
 # Informacion de los labels y arrows
 info_ball_1 = 'X1: ' + str(Initial_Position_Ball_1) + 'm'
@@ -84,12 +95,15 @@ cache_ball2 = sphere(pos=initial_pos_ball_2, radius=0, color=color.yellow)
 # Simulacion de movimiento
 deltaT = 0.005
 t = 0
-while t <= 2 * time:
+while t <= 3 * time:
     rate(500)
     ball1.pos = cache_ball1.pos + ball1.velocity * t + (0.5) * ball1.acceleration * t * t
     ball2.pos = cache_ball2.pos + ball2.velocity * t + (0.5) * ball2.acceleration * t * t
-    if round(ball1.pos[0], 0) == round(point_of_impact, 0):
+    if round(ball1.pos[0], 0) == round(point_of_impact, 0) or round(ball1.pos[0], 0) == round(point_of_impact_2, 0):
     	rate(5)
     	ball1.color = color.yellow
     	ball2.color = color.yellow
+    else: 
+    	ball1.color = color.cyan
+    	ball2.color = color.red
     t += deltaT
