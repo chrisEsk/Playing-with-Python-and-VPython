@@ -3,7 +3,6 @@
 # [__) _ ._.  /  `|_ ._.* __-+-* _.._   [__  __ _.. .*.  , _ |
 # |   (_)[    \__.[ )[  |_)  | |(_][ )  [____) (_](_|| \/ (/,|
 #                                                |            
-# Este script modela el comportamiento de dos bolas en caida libre
 
 from visual import *
 import math

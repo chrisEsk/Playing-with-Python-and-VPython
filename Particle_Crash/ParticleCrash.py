@@ -2,9 +2,6 @@
 # [__) _ ._.  /  `|_ ._.* __-+-* _.._   [__  __ _.. .*.  , _ |
 # |   (_)[    \__.[ )[  |_)  | |(_][ )  [____) (_](_|| \/ (/,|
 #                                                |            
-# Fisica 1 - Universidad Cenfotec
-# Este script simula el movimiento de 2 particulas y determina la colision de una con la otra basandose en
-# ecuaciones de movimiento rectilineo con aceleracion constante
 
 from visual import *
 import math
