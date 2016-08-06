@@ -1,18 +1,12 @@
-# .__          __ .          ,          .___                 .
-# [__) _ ._.  /  `|_ ._.* __-+-* _.._   [__  __ _.. .*.  , _ |
-# |   (_)[    \__.[ )[  |_)  | |(_][ )  [____) (_](_|| \/ (/,|
-#                                                |            
-
 from visual import *
 import numpy as np
 import math
 
-#### Modificar estas Variables #######
+#### Modify These #######
 pos_A = (1, 2, 3)
 pos_B = (2, -2, 1)
-######################################
+#########################
 
-# Cambiando display settings: 
 scene = display(title='Cross Product', x=0, y=0, width=800, height=800, autocente=true, background=color.gray(0.2))
 
 sphere(pos=(0, 0, 0), radius=0.2, color=color.red, material=materials.marble, opacity=0.5)
@@ -27,7 +21,7 @@ z_arrow_negative = arrow(pos=(0, 0, 0), axis=(0, 0, -8), shaftwidth=0.1, color=c
 vector_A = arrow(pos=(0,0,0), axis=(pos_A), shaftwidth=0.1, color=color.green, material=materials.wood)
 vector_B = arrow(pos=(0,0,0), axis=(pos_B), shaftwidth=0.1, color=color.green, material=materials.wood)
 
-# Numpy al rescate!
+# Numpy cross
 cross_Product = np.cross(pos_A, pos_B)
 
 info = 'A= ' + str(pos_A[0]) + 'i + ' + str(pos_A[1]) + 'j + ' + str(pos_A[2]) + 'k'
